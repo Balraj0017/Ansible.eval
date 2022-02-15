@@ -1,0 +1,40 @@
+---
+- name: installing nginx
+  apt:
+    name: nginx
+    update_cache: yes
+    state: latest
+  become: yes
+
+
+- import_tasks: nginxcopy1.yml
+ 
+- import_tasks: nginxcopy2.yml
+
+- import_tasks: htmlpage.yml
+
+task1
+---
+- name: nignx.conf
+  template:
+    src: templates/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    force: yes
+  become: yes
+
+task 2
+---
+- name: copy nginx conf
+  template: 
+    src: templates/conf.d/balraj.conf
+    dest: /etc/nginx/conf.d/balraj.conf
+    force: yes
+  become: yes
+ 
+task3
+---
+- name: copy html pages
+  copy:
+    src: files/blackdog
+    dest: /var/www/
+  become: yes
